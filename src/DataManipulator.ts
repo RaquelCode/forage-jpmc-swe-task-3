@@ -1,14 +1,15 @@
 import {ServerRespond} from './DataStreamer';
 
 export interface Row {
-    price_abc: number,
-    price_def: number,
-    ratio: number,
-    timestamp: Date,
-    upper_bound: number,
-    lower_bound: number,
-    trigger_alert: number | undefined,
+  ratio: number;
+  upper_bound: number;
+  lower_bound: number;
+  trigger_alert?: number;
+  price_abc: number;
+  price_def: number;
+  timestamp: Date;
 }
+
 
 
 export class DataManipulator {
@@ -28,5 +29,18 @@ export class DataManipulator {
             lower_bound: lowerBound,
             trigger_alert: (ratio > upperBound || ratio < lowerBound) ? ratio : undefined,
         };
+    }
+
+    // Helper function to calculate the average price
+    static calculateAveragePrice(stockData: number[]): number {
+        const sum = stockData.reduce((total, price) => total + price, 0);
+        return sum / stockData.length;
+    }
+
+    // Helper function to calculate the 12 month historical average ratio
+    // @ts-ignore
+    static calculateHistoricalRatioAverage(): number {
+        // Implement the logic to calculate the historical average ratio
+        // based on the historical data
     }
 }
